@@ -15,7 +15,9 @@ mat4_t mat4_make_rotation_y(float angle);
 mat4_t mat4_make_rotation_z(float angle);
 vec4_t mat4_mul_vec4(mat4_t m, vec4_t v);
 mat4_t mat4_mul_mat4(mat4_t a, mat4_t b);
-mat4_t Matrix_MakeProjection(float fFovDegrees, float fAspectRatio, float fNear, float fFar);
+mat4_t Matrix_MakeProjection(float fFov, float fAspectRatio, float fNear, float fFar);
 vec4_t mat4_mul_vec4_project(mat4_t mat_proj, vec4_t v);
 mat4_t mat4_look_at(vec3_t eye, vec3_t target, vec3_t up);
+float deg2rad(float deg);
+float rad2deg(float rad);
 #endif

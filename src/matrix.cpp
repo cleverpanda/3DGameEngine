@@ -101,15 +101,22 @@ mat4_t mat4_mul_mat4(mat4_t a, mat4_t b) {
     return matrix;
 }
 
-mat4_t Matrix_MakeProjection(float fFovDegrees, float fAspectRatio, float fNear, float fFar){
-    float fFovRad = 1.0f / tanf(fFovDegrees * 0.5f / 180.0f * 3.141592653589);
-    mat4_t matrix = { {{0}} };
-    matrix.m[0][0] = fAspectRatio * fFovRad;
-    matrix.m[1][1] = fFovRad;
-    matrix.m[2][2] = fFar / (fFar - fNear);
-    matrix.m[2][3] = (-fFar * fNear) / (fFar - fNear);
-    matrix.m[3][2] = 1.0f;
-    return matrix;
+float deg2rad(float deg) {
+    return (deg * 3.141592653589)/ 180.0f;
+}
+
+float rad2deg(float rad) {
+    return (rad * 180.0f )/ 3.141592653589;
+}
+
+mat4_t Matrix_MakeProjection(float fov, float aspect, float zNear, float zFar){
+    mat4_t m = { {{ 0 }} };
+    m.m[0][0] = aspect * (1 / tan(fov / 2));
+    m.m[1][1] = 1 / tan(fov / 2);
+    m.m[2][2] = zFar / (zFar - zNear);
+    m.m[2][3] = (-zFar * zNear) / (zFar - zNear);
+    m.m[3][2] = 1.0;
+    return m;
 }
 
 vec4_t mat4_mul_vec4_project(mat4_t mat_proj, vec4_t v) {
